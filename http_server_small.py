@@ -5,7 +5,7 @@ import textwrap
 import logging
 import os
 from  urllib.parse import unquote
-from http.server import HTTPServer, BaseHTTPRequestHandler, SimpleHTTPRequestHandler
+from http.server import HTTPServer, BaseHTTPRequestHandler
 
 class B(BaseHTTPRequestHandler):
     def _set_response(self):       #send back a 200 HTTP response & headers
@@ -46,10 +46,11 @@ class B(BaseHTTPRequestHandler):
         content_length = int(self.headers['Content-Length']) # <--- Gets the size of data
         post_data = self.rfile.read(content_length) # <--- Gets the data itself
         post_data = unquote(post_data.decode('utf-8')).split("&")
-        logging.info("POST request,\nPath: %s\nHeaders:\n%s\n\nBody:\n%s\n",
+        logging.info("\nPOST request,\nPath: %s\nHeaders:\n%s\nBody:\n%s\n",
                 str(self.path), str(self.headers), post_data)
         self._set_response()
         self.wfile.write("POST request for {}".format(self.path).encode('utf-8'))
+        self.wfile.write(b"\n")
 
     def list_directory(self,path):
         self.wfile.write(b"\nAttempting to list current directory:\n")
