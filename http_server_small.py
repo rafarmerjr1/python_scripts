@@ -58,7 +58,7 @@ class B(BaseHTTPRequestHandler):
             self.wfile.write(b"Your query: \n")
             self.wfile.write((self.path).encode('utf-8'))
             self.wfile.write(b"\n")
-            filepath = os.getcwd()
+            filepath = os.getcwd()  #nonsecure but functional lock to the script directory
             list = os.listdir(filepath)
             self.wfile.write(b"\nPresent in current directory: \n")
             for item in list:
